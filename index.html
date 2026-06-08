@@ -328,6 +328,21 @@ body{display:flex;flex-direction:column;}
 .b-tok{background:#F3F0FF;color:#5B21B6;border:1px solid #C4B5FD;}
 .le-msg{color:var(--text);}
 .hotel-pin{background:var(--ej);color:#fff;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.2);}
+/* ── MOBILE MODE (portrait / narrow viewport) ───────────────── */
+body.mobile-mode .app-header{display:none;}
+body.mobile-mode #analysisCol{display:none!important;}
+body.mobile-mode #phoneCol{width:100%;padding:0;background:var(--bg);align-items:stretch;justify-content:stretch;}
+body.mobile-mode .ph-outer{width:100%;max-height:none;background:transparent;border-radius:0;padding:0;box-shadow:none;flex:1;}
+body.mobile-mode .ph-btn-r,
+body.mobile-mode .ph-btn-l1,
+body.mobile-mode .ph-btn-l2,
+body.mobile-mode .ph-btn-l3,
+body.mobile-mode .ph-statusbar,
+body.mobile-mode .ph-island,
+body.mobile-mode .ph-home{display:none!important;}
+body.mobile-mode .ph-screen{border-radius:0;flex:1;}
+body.mobile-mode #msgs{padding:12px 10px;}
+body.mobile-mode .mr{max-width:88%;}
 </style>
 </head>
 <body>
@@ -590,11 +605,24 @@ function buildHeaders(){
   return h;
 }
 
+// ── DEVICE DETECTION ─────────────────────────────────────────────
+function isMobile(){
+  var ratio=window.innerWidth/window.innerHeight;
+  return ratio<1.1||window.innerWidth<800;
+}
+function applyDeviceMode(){
+  if(isMobile())document.body.classList.add('mobile-mode');
+}
+function autoActivateIfMobile(){
+  if(isMobile())setTimeout(activate,600);
+}
+
 async function initDemo(){
+  applyDeviceMode();
   if(window.location.protocol==='file:')showFileWarning();
   try{
     var r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'content-type':'application/json','anthropic-version':'2023-06-01'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:5,messages:[{role:'user',content:'hi'}]})});
-    if(r.ok){IN_CLAUDE=true;document.getElementById('keyScreen').style.display='none';document.getElementById('app').style.display='flex';return;}
+    if(r.ok){IN_CLAUDE=true;document.getElementById('keyScreen').style.display='none';document.getElementById('app').style.display='flex';autoActivateIfMobile();return;}
   }catch(e){}
   try{var s=sessionStorage.getItem('ej_ak');if(s){API_KEY=s;document.getElementById('apiInput').value=s;}}catch(e){}
   document.getElementById('detectPane').style.display='none';
@@ -637,6 +665,7 @@ function launchDemo(){
       if(document.getElementById('rememberKey').checked){try{sessionStorage.setItem('ej_ak',API_KEY);}catch(e){}}
       document.getElementById('keyScreen').style.display='none';
       document.getElementById('app').style.display='flex';
+      autoActivateIfMobile();
     }else{
       err.textContent='Connection failed. Check your API key is correct. If opening as a local file, serve via python3 -m http.server 8080 first.';
       err.style.display='block';
