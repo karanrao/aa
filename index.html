@@ -343,6 +343,8 @@ body.mobile-mode .ph-home{display:none!important;}
 body.mobile-mode .ph-screen{border-radius:0;flex:1;}
 body.mobile-mode #msgs{padding:12px 10px;}
 body.mobile-mode .mr{max-width:88%;}
+@keyframes msgIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.msg-new{animation:msgIn .6s cubic-bezier(.2,.6,.4,1) both;}
 </style>
 </head>
 <body>
@@ -699,7 +701,7 @@ function activate(){
   setTimeout(function(){
     renderTripCard();
     setTimeout(function(){
-      var opening='Hi Sarah! I can see your Alicante flights are confirmed \u2014 6 weeks to go! Have you sorted a hotel yet? August is peak season and the best spots book up fast.';
+      var opening='Flights are all booked for Alicante \u2014 let\u2019s get your stay sorted!';
       addAgent(opening);
       log('notif','In-app message delivered to Sarah Chen',0);
       chatHistory.push({role:'user',content:'[Session start]'});
@@ -823,7 +825,7 @@ function renderBudgetSlider(){
   sliderBudget=150; // always reset so a previous run's value doesn't bleed through
   var area=document.getElementById('msgs');
   var card=document.createElement('div');
-  card.className='budget-card';card.id='budgetCard';
+  card.className='budget-card msg-new';card.id='budgetCard';
   card.innerHTML='<div class="bc-title">What\'s your accommodation budget?</div>'
     +'<div><div class="bc-amount" id="bcAmt">\u00a3150</div>'
     +'<div class="bc-sub">per room / night &nbsp;<span style="color:var(--text-3)">(double occupancy)</span></div></div>'
@@ -894,7 +896,7 @@ function confirmBudget(){
 function renderHotelCards(){
   if(!activeHotelSet)activeHotelSet=HOTEL_SETS.mid;
   var area=document.getElementById('msgs');
-  var wrap=document.createElement('div');wrap.className='h-cards';
+  var wrap=document.createElement('div');wrap.className='h-cards msg-new';
   activeHotelSet.forEach(function(h,idx){
     var card=document.createElement('div');card.className='h-card';
     card.innerHTML='<div class="h-thumb" style="background:linear-gradient(135deg,'+h.gA+','+h.gB+')">'
@@ -1089,6 +1091,7 @@ function renderItineraryCard(h){
     +'</div>';
   area.insertAdjacentHTML('beforeend', html);
   var card=area.lastElementChild;
+  card.classList.add('msg-new');
   card.addEventListener('click',function(e){
     var b=e.target.closest('button[data-ikey]');
     if(b)itinAction(b.getAttribute('data-ikey'));
@@ -1115,30 +1118,52 @@ function itinAction(key){
 // -- QUICK REPLIES --
 function renderQuickReplies(){
   var area=document.getElementById('msgs');
-  var card=document.createElement('div');
-  card.id='quickReplies';
-  card.style.cssText='display:flex;flex-direction:column;gap:8px;width:100%;flex-shrink:0;padding:2px 0;';
+  var wrap=document.createElement('div');
+  wrap.id='quickReplies';
+  wrap.style.cssText='display:flex;flex-direction:column;gap:6px;width:100%;flex-shrink:0;';
+  wrap.classList.add('msg-new');
 
-  function qbtn(icon,label,key,bg,co,bd){
-    return '<button data-qr="'+key+'" style="width:100%;text-align:left;padding:11px 16px;border-radius:22px;border:1.5px solid '+bd+';background:'+bg+';color:'+co+';font-family:Outfit,system-ui,sans-serif;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:10px;">'+icon+'&nbsp;'+label+'</button>';
-  }
+  var lbl=document.createElement('div');
+  lbl.style.cssText='font-size:10px;color:var(--text-3);text-align:center;letter-spacing:.5px;text-transform:uppercase;font-weight:600;';
+  lbl.textContent='Quick reply';
+  wrap.appendChild(lbl);
 
-  card.innerHTML=
-    qbtn('&#10003;','Yes, all set &mdash; show me my trip','yes','#ECFDF5','#065F46','#A7F3D0')
-   +qbtn('&#128269;','No, help me find a hotel','find','#FFF4EE','#7A3000','#FFCCAA')
-   +qbtn('&#9202;','No, remind me later','later','#F9FAFB','#374151','rgba(0,0,0,.12)');
+  var row=document.createElement('div');
+  row.style.cssText='display:flex;gap:7px;width:100%;';
 
-  card.addEventListener('click',function(e){
+  var defs=[
+    {icon:'&#128075;',label:'No thanks',key:'yes',  bg:'#ECFDF5',co:'#065F46',bd:'#A7F3D0'},
+    {icon:'&#128269;',label:'Find hotel',key:'find', bg:'#FFF4EE',co:'#7A3000',bd:'#FFCCAA'},
+    {icon:'&#9202;',  label:'Later',     key:'later',bg:'#F9FAFB',co:'#374151',bd:'rgba(0,0,0,.12)'}
+  ];
+
+  defs.forEach(function(d){
+    var b=document.createElement('button');
+    b.setAttribute('data-qr',d.key);
+    b.style.cssText='flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;'
+      +'gap:5px;padding:11px 6px;border-radius:12px;border:1.5px solid '+d.bd+';background:'+d.bg+';'
+      +'color:'+d.co+';font-family:Outfit,system-ui,sans-serif;cursor:pointer;line-height:1.2;'
+      +'transition:filter .12s;';
+    b.innerHTML='<span style="font-size:18px;">'+d.icon+'</span>'
+               +'<span style="font-size:11px;font-weight:600;">'+d.label+'</span>';
+    b.addEventListener('mouseenter',function(){this.style.filter='brightness(.94)';});
+    b.addEventListener('mouseleave',function(){this.style.filter='';});
+    row.appendChild(b);
+  });
+
+  wrap.appendChild(row);
+
+  wrap.addEventListener('click',function(e){
     var btn=e.target.closest('button[data-qr]');
     if(!btn)return;
-    card.style.opacity='0.4';card.style.pointerEvents='none';
+    wrap.style.opacity='0.35';wrap.style.pointerEvents='none';
     var action=btn.getAttribute('data-qr');
     if(action==='yes')handleYesAllSet();
     else if(action==='find')handleFindHotel();
     else handleRemindLater();
   });
 
-  area.appendChild(card);
+  area.appendChild(wrap);
   area.scrollTop=area.scrollHeight;
 }
 
@@ -1181,7 +1206,7 @@ function handleRemindLater(){
 function renderTripCard(){
   var area=document.getElementById('msgs');
   var days=42;var weeks=6;
-  var card=document.createElement('div');card.className='trip-card';
+  var card=document.createElement('div');card.className='trip-card msg-new';
   card.innerHTML='<div class="tc-top"><span class="tc-logo">&#9992;</span><span class="tc-ref">EJH4819</span></div>'
     +'<div class="tc-route">'
     +'<div class="tc-apt"><div class="tc-code">LGW</div><div class="tc-city">London Gatwick</div><div class="tc-t">07:20</div></div>'
@@ -1199,7 +1224,7 @@ function renderTripCard(){
 // ── UI HELPERS ───────────────────────────────────────────────────
 function addAgent(txt,fullWidth){
   var area=document.getElementById('msgs');
-  var r=document.createElement('div');r.classList.add('mr','ag');
+  var r=document.createElement('div');r.classList.add('mr','ag','msg-new');
   if(fullWidth){
     r.style.cssText='max-width:100%;width:100%;display:block;';
     r.innerHTML=txt;
@@ -1210,7 +1235,7 @@ function addAgent(txt,fullWidth){
 }
 function addCustomer(txt){
   var area=document.getElementById('msgs');
-  var r=document.createElement('div');r.classList.add('mr','cu');
+  var r=document.createElement('div');r.classList.add('mr','cu','msg-new');
   r.innerHTML='<div class="mav cu-av">SC</div><div class="mb">'+txt+'</div>';
   area.appendChild(r);area.scrollTop=area.scrollHeight;
 }
@@ -1225,7 +1250,6 @@ function setInputEnabled(on){
   var cin=document.getElementById('cin');
   var snd=document.getElementById('sndBtn');
   cin.disabled=!on;snd.disabled=!on;
-  if(on)setTimeout(function(){cin.focus();},80);
 }
 
 function trackTokens(usage){
@@ -1254,10 +1278,6 @@ function log(type,msg,delay){
   },delay);
 }
 
-  document.getElementById('msgs').addEventListener('click',function(){
-    var cin=document.getElementById('cin');
-    if(!cin.disabled)cin.focus();
-  });
   initDemo();
 </script>
 </body>
