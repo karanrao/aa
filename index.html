@@ -1105,14 +1105,36 @@ function renderItineraryCard(h){
 
 function itinAction(key){
   var hn=(currentDetailHotel&&currentDetailHotel.name)||'your hotel';
-  var msgs={
-    'transfer-out':'We partner with National Express and Uber for Gatwick pickups. What time would you like to be collected on 15 August?',
-    'transfer-arr':'I can book a private transfer from ALC airport to '+hn+' \u2014 usually around 20 minutes. Shall I look at options for your arrival?',
-    'activities':'Alicante has brilliant options \u2014 Santa Barbara Castle, the MARQ archaeology museum, a Tabarca island boat trip, or a wine tour in Marina Alta. Want me to suggest a few?',
-    'dining':'I can check availability near your hotel for a final evening. Any preference for cuisine \u2014 Spanish, seafood, or something else?',
-    'transfer-dep':'I can arrange a transfer to ALC airport on 22 August. With an 18:30 flight, a 16:00 pickup gives you plenty of time. Want me to book it?'
+  var actions={
+    'transfer-out':{
+      user:'I tapped the airport transfer button for my departure from Gatwick on 15 August.',
+      agent:'We partner with National Express and Uber for Gatwick pickups. What time would you like to be collected on 15 August?'
+    },
+    'transfer-arr':{
+      user:'I tapped the arrival transfer button for my arrival into Alicante.',
+      agent:'I can book a private transfer from ALC airport to '+hn+' \u2014 usually around 20 minutes. Shall I look at arrival options for you?'
+    },
+    'activities':{
+      user:'I tapped Discover Alicante on my itinerary.',
+      agent:'Alicante has brilliant options \u2014 Santa Barbara Castle, the MARQ archaeology museum, a Tabarca island boat trip, or a wine tour in Marina Alta. Want me to suggest a few?'
+    },
+    'dining':{
+      user:'I tapped Book farewell dinner on my itinerary.',
+      agent:'I can check availability near your hotel for a final evening. Any preference for cuisine \u2014 Spanish, seafood, or something else?'
+    },
+    'transfer-dep':{
+      user:'I tapped the departure transfer button for my return flight on 22 August.',
+      agent:'I can arrange a transfer to ALC airport on 22 August. With an 18:30 flight, a 16:00 pickup gives you plenty of time. Want me to book it?'
+    }
   };
-  addAgent(msgs[key]||'Let me look into that for you.');
+  var a=actions[key];
+  if(a){
+    chatHistory.push({role:'user',content:a.user});
+    chatHistory.push({role:'assistant',content:a.agent});
+    addAgent(a.agent);
+  }else{
+    addAgent('Let me look into that for you.');
+  }
 }
 
 // -- QUICK REPLIES --
