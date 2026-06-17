@@ -58,7 +58,7 @@ body{display:flex;flex-direction:column;}
 
 /* ── ANALYSIS COLUMN ────────────────────────────────────────── */
 #analysisCol{flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0;border-right:1px solid var(--border-2);}
-#bookingPanel{flex:0 0 auto;max-height:40%;overflow-y:auto;padding:16px 18px;background:var(--surface);display:flex;flex-direction:column;gap:12px;border-bottom:1px solid var(--border-2);}
+#bookingPanel{flex:0 0 auto;max-height:52%;overflow-y:auto;padding:16px 18px;background:var(--surface);display:flex;flex-direction:column;gap:12px;border-bottom:1px solid var(--border-2);}
 #agentPanel{flex:1;overflow-y:auto;padding:18px;background:var(--bg);display:flex;flex-direction:column;gap:13px;min-height:0;}
 #consolePanel{display:none;flex:0 0 36%;flex-direction:column;overflow:hidden;border-top:2px solid var(--border);background:var(--surface-2);min-height:0;}
 .con-hdr{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--surface);border-bottom:1px solid var(--border-2);flex-shrink:0;}
@@ -116,7 +116,7 @@ body{display:flex;flex-direction:column;}
 .hdv-name{font-size:13px;font-weight:600;}
 .hdv-body{flex:1;overflow-y:auto;min-height:0;scrollbar-width:none;}
 .hdv-body::-webkit-scrollbar{display:none;}
-.hdv-hero{position:relative;height:160px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hdv-hero{position:relative;height:180px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
 .hdv-thumbs{display:flex;gap:6px;padding:8px 14px;background:var(--surface-2);border-bottom:1px solid var(--border-2);flex-shrink:0;overflow-x:auto;}
 .hdv-thumb{width:56px;height:36px;border-radius:5px;cursor:pointer;opacity:.5;transition:opacity .15s;flex-shrink:0;border:2px solid transparent;}
 .hdv-thumb.active{opacity:1;border-color:#fff;}
@@ -376,6 +376,7 @@ body.mobile-mode .mr{max-width:88%;}
   <div class="app-header">
     
     <span class="demo-tag">Agentic attach &mdash; demo</span>
+    <span style="font-size:10px;font-family:var(--mono);color:var(--text-3);background:var(--surface-2);border:1px solid var(--border);padding:2px 8px;border-radius:20px;">v1.7</span>
     <button id="backBtn" onclick="goBack()">&#8592; Back to analysis</button>
     <span class="hdr-right">NTT DATA &middot; Agentic Attach Demo</span>
   </div>
@@ -402,17 +403,48 @@ body.mobile-mode .mr{max-width:88%;}
             <div class="mc"><div class="mc-lbl">Hotel</div><div class="mc-val miss">Not booked</div></div>
           </div>
         </div>
-        <div class="sec-lbl">Customer profile</div>
-        <div class="cust-card">
-          <div class="cust-row">
-            <div class="avatar">SC</div>
-            <div><div class="cust-name">Sarah Chen</div><div class="loy-badge">&#11088; Explorer &mdash; 2 years</div></div>
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <!-- Customer profile -->
+          <div style="flex:1;min-width:0;">
+            <div class="sec-lbl">Customer profile</div>
+            <div class="cust-card">
+              <div class="cust-row">
+                <div class="avatar">SC</div>
+                <div><div class="cust-name">Sarah Chen</div><div class="loy-badge">&#11088; Explorer &mdash; 2 years</div></div>
+              </div>
+              <div class="p-row"><span class="p-key">Stay preference</span><span class="p-val">4-star, beach</span></div>
+              <div class="p-row"><span class="p-key">Last trip</span><span class="p-val">Lisbon, Sept 2024</span></div>
+              <div class="p-row"><span class="p-key">Avg. booking lead</span><span class="p-val">5.2 weeks</span></div>
+              <div class="p-row"><span class="p-key">Previous attach rate</span><span class="p-val pos">68%</span></div>
+              <div class="p-row"><span class="p-key">Preferred channel</span><span class="p-val">In-app message</span></div>
+            </div>
           </div>
-          <div class="p-row"><span class="p-key">Stay preference</span><span class="p-val">4-star, beach</span></div>
-          <div class="p-row"><span class="p-key">Last trip</span><span class="p-val">Lisbon, Sept 2024</span></div>
-          <div class="p-row"><span class="p-key">Avg. booking lead</span><span class="p-val">5.2 weeks</span></div>
-          <div class="p-row"><span class="p-key">Previous attach rate</span><span class="p-val pos">68%</span></div>
-          <div class="p-row"><span class="p-key">Preferred channel</span><span class="p-val">In-app message</span></div>
+          <!-- Contact strategy -->
+          <div style="flex:1;min-width:0;">
+            <div class="sec-lbl">Contact strategy</div>
+            <div class="tl-card" style="opacity:1;animation:none;">
+              <div class="tl-item">
+                <div class="tl-wh"><div class="tl-wl">Now</div><div class="tl-wt">Booking confirmed</div></div>
+                <div class="tl-sp"><div class="tl-dot td-now"></div><div class="tl-conn"></div></div>
+                <div class="tl-c"><div class="tl-ar"><span class="ch-b cb-app">In-app</span><span class="tl-an">Hotel recommendation</span></div><div class="tl-d">Personalised by budget preference</div></div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-wh"><div class="tl-wl">+24h</div><div class="tl-wt">Hotel confirmed</div></div>
+                <div class="tl-sp"><div class="tl-dot td-s"></div><div class="tl-conn"></div></div>
+                <div class="tl-c"><div class="tl-ar"><span class="ch-b cb-em">Email</span><span class="tl-an">Travel insurance</span></div><div class="tl-d">Columbus cover tailored to trip value</div></div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-wh"><div class="tl-wl">T&minus;14 days</div><div class="tl-wt">Scheduled</div></div>
+                <div class="tl-sp"><div class="tl-dot td-l"></div><div class="tl-conn"></div></div>
+                <div class="tl-c"><div class="tl-ar"><span class="ch-b cb-pu">Push</span><span class="tl-an">Airport transfers</span></div><div class="tl-d">ALC arrival transfer matched to hotel</div></div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-wh"><div class="tl-wl">T&minus;2 days</div><div class="tl-wt">Scheduled</div></div>
+                <div class="tl-sp"><div class="tl-dot td-x"></div><div class="tl-conn"></div></div>
+                <div class="tl-c"><div class="tl-ar"><span class="ch-b cb-em">Email</span><span class="tl-an">Check-in &amp; Alicante tips</span></div><div class="tl-d">Web check-in reminder and destination guide</div></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -430,29 +462,6 @@ body.mobile-mode .mr{max-width:88%;}
           <span style="font-size:24px;color:var(--green);flex-shrink:0">&#10004;</span>
           <div><div class="dec-lbl">Contact: yes &mdash; send hotel recommendation now</div><div class="dec-sub">Optimal window: within 30 minutes of booking confirmation</div></div>
           <div class="dec-stat"><div class="d-num">73%</div><div class="d-lbl">attach probability</div></div>
-        </div>
-        <div class="tl-card">
-          <div class="tl-hdr">Contact strategy</div>
-          <div class="tl-item">
-            <div class="tl-wh"><div class="tl-wl">Now</div><div class="tl-wt">Booking confirmed</div></div>
-            <div class="tl-sp"><div class="tl-dot td-now"></div><div class="tl-conn"></div></div>
-            <div class="tl-c"><div class="tl-ar"><span class="ch-b cb-app">In-app</span><span class="tl-an">Hotel recommendation</span></div><div class="tl-d">Personalised by budget preference</div></div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-wh"><div class="tl-wl">+24h</div><div class="tl-wt">Hotel confirmed</div></div>
-            <div class="tl-sp"><div class="tl-dot td-s"></div><div class="tl-conn"></div></div>
-            <div class="tl-c"><div class="tl-ar"><span class="ch-b cb-em">Email</span><span class="tl-an">Travel insurance</span></div><div class="tl-d">Columbus cover tailored to trip value</div></div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-wh"><div class="tl-wl">T&minus;14 days</div><div class="tl-wt">Scheduled</div></div>
-            <div class="tl-sp"><div class="tl-dot td-l"></div><div class="tl-conn"></div></div>
-            <div class="tl-c"><div class="tl-ar"><span class="ch-b cb-pu">Push</span><span class="tl-an">Airport transfers</span></div><div class="tl-d">ALC arrival transfer matched to hotel</div></div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-wh"><div class="tl-wl">T&minus;2 days</div><div class="tl-wt">Scheduled</div></div>
-            <div class="tl-sp"><div class="tl-dot td-x"></div><div class="tl-conn"></div></div>
-            <div class="tl-c"><div class="tl-ar"><span class="ch-b cb-em">Email</span><span class="tl-an">Check-in &amp; Alicante tips</span></div><div class="tl-d">Web check-in reminder and destination guide</div></div>
-          </div>
         </div>
         <div class="act-wrap" id="actWrap">
           <button class="act-btn" id="actBtn" onclick="activate()">&#9654;&nbsp; Activate agent &mdash; send first contact</button>
@@ -564,21 +573,32 @@ const ICONS={
 };
 
 // ── HOTEL SETS ──────────────────────────────────────────────────
+// ── PREFERENCE FILTERS ──────────────────────────────────────────
+const PREF_OPTIONS=[
+  {key:'beach',   icon:'&#127958;', label:'Beach',       tags:['beach']},
+  {key:'golf',    icon:'&#9971;',   label:'Golf',        tags:['golf']},
+  {key:'boutique',icon:'&#127963;', label:'Boutique',    tags:['boutique']},
+  {key:'city',    icon:'&#127961;', label:'City centre', tags:['city']},
+  {key:'views',   icon:'&#127749;', label:'Views',       tags:['views']},
+  {key:'dining',  icon:'&#127869;', label:'Fine dining', tags:['dining']},
+];
+var selectedPrefs=[];
+
 const HOTEL_SETS={
   budget:[
-    {name:'NH Alicante Hotel',tier:'4-star',feat:'City beachfront · modern rooms · pool bar',pricePerNight:85,icon:'beach',gA:'#1d4ed8',gB:'#60a5fa',thumb:'https://picsum.photos/id/429/90/80',gallery:[{l:'Exterior',a:'#1e3a8a',b:'#3b82f6'},{l:'Pool',a:'#065f46',b:'#34d399'},{l:'Room',a:'#1e1b4b',b:'#818cf8'},{l:'Beach',a:'#0c4a6e',b:'#38bdf8'}],lat:38.3390,lng:-0.4823,description:'A modern 4-star hotel steps from Alicante\'s beach and city centre, combining clean contemporary design with great facilities and a rooftop pool overlooking the marina.',highlights:['Rooftop pool with marina views','5 minutes from Playa del Postiguet','City centre location','Fitness centre & spa treatments','Bar and restaurant on-site','Free Wi-Fi throughout']},
-    {name:'Hotel Alicante Gran Sol',tier:'4-star',feat:'Castle views · city centre · rooftop terrace',pricePerNight:79,icon:'city',gA:'#92400e',gB:'#f59e0b',thumb:'https://picsum.photos/id/1068/90/80',gallery:[{l:'Exterior',a:'#78350f',b:'#d97706'},{l:'View',a:'#451a03',b:'#92400e'},{l:'Room',a:'#1c1917',b:'#57534e'},{l:'Terrace',a:'#422006',b:'#c2410c'}],lat:38.3441,lng:-0.4833,description:'An iconic Alicante landmark at the foot of Santa Barbara Castle with panoramic views over the bay. Excellent value with a central position that puts everything within walking distance.',highlights:['Panoramic views of Alicante Castle','5-minute walk to Explanada de Espana','Rooftop terrace bar','Modern rooms with city or sea views','Concierge and tour desk','Steps from the historic quarter']},
-    {name:'Hotel Alicante Golf & Spa',tier:'4-star',feat:'Golf course · full spa · large pool complex',pricePerNight:98,icon:'golf',gA:'#166534',gB:'#22c55e',thumb:'https://picsum.photos/id/1002/90/80',gallery:[{l:'Golf',a:'#14532d',b:'#16a34a'},{l:'Pool',a:'#065f46',b:'#10b981'},{l:'Spa',a:'#1e1b4b',b:'#6366f1'},{l:'Grounds',a:'#052e16',b:'#4ade80'}],lat:38.2280,lng:-0.5610,description:'A peaceful resort set on the Alicante Golf course. The pool complex is enormous, the spa award-winning, and the greenery a welcome contrast to the busy city — just 15 minutes by taxi from the beach.',highlights:['On-site 18-hole championship golf','Award-winning spa & wellness centre','Multiple outdoor pools','15 minutes to Playa San Juan','Three restaurants and poolside bar','Tennis courts and sports facilities']}
+    {name:'NH Alicante Hotel',tier:'4-star',feat:'City beachfront · modern rooms · pool bar',pricePerNight:85,icon:'beach',tags:['beach','city','views'],gA:'#1d4ed8',gB:'#60a5fa',thumb:'https://picsum.photos/id/429/90/80',gallery:[{l:'Exterior',a:'#1e3a8a',b:'#3b82f6'},{l:'Pool',a:'#065f46',b:'#34d399'},{l:'Room',a:'#1e1b4b',b:'#818cf8'},{l:'Beach',a:'#0c4a6e',b:'#38bdf8'}],lat:38.3390,lng:-0.4823,description:'A modern 4-star hotel steps from Alicante\'s beach and city centre, combining clean contemporary design with great facilities and a rooftop pool overlooking the marina.',highlights:['Rooftop pool with marina views','5 minutes from Playa del Postiguet','City centre location','Fitness centre & spa treatments','Bar and restaurant on-site','Free Wi-Fi throughout']},
+    {name:'Hotel Alicante Gran Sol',tier:'4-star',feat:'Castle views · city centre · rooftop terrace',pricePerNight:79,icon:'city',tags:['city','views','boutique'],gA:'#92400e',gB:'#f59e0b',thumb:'https://picsum.photos/id/1068/90/80',gallery:[{l:'Exterior',a:'#78350f',b:'#d97706'},{l:'View',a:'#451a03',b:'#92400e'},{l:'Room',a:'#1c1917',b:'#57534e'},{l:'Terrace',a:'#422006',b:'#c2410c'}],lat:38.3441,lng:-0.4833,description:'An iconic Alicante landmark at the foot of Santa Barbara Castle with panoramic views over the bay. Excellent value with a central position that puts everything within walking distance.',highlights:['Panoramic views of Alicante Castle','5-minute walk to Explanada de Espana','Rooftop terrace bar','Modern rooms with city or sea views','Concierge and tour desk','Steps from the historic quarter']},
+    {name:'Hotel Alicante Golf & Spa',tier:'4-star',feat:'Golf course · full spa · large pool complex',pricePerNight:98,icon:'golf',tags:['golf'],gA:'#166534',gB:'#22c55e',thumb:'https://picsum.photos/id/1002/90/80',gallery:[{l:'Golf',a:'#14532d',b:'#16a34a'},{l:'Pool',a:'#065f46',b:'#10b981'},{l:'Spa',a:'#1e1b4b',b:'#6366f1'},{l:'Grounds',a:'#052e16',b:'#4ade80'}],lat:38.2280,lng:-0.5610,description:'A peaceful resort set on the Alicante Golf course. The pool complex is enormous, the spa award-winning, and the greenery a welcome contrast to the busy city — just 15 minutes by taxi from the beach.',highlights:['On-site 18-hole championship golf','Award-winning spa & wellness centre','Multiple outdoor pools','15 minutes to Playa San Juan','Three restaurants and poolside bar','Tennis courts and sports facilities']}
   ],
   mid:[
-    {name:'Marriott Alicante',tier:'4-star',feat:'City centre · Explanada walkable · spa & pool',pricePerNight:128,icon:'city',gA:'#374151',gB:'#6b7280',thumb:'https://picsum.photos/id/1060/90/80',gallery:[{l:'Exterior',a:'#1f2937',b:'#4b5563'},{l:'Lobby',a:'#111827',b:'#374151'},{l:'Pool',a:'#0c4a6e',b:'#0ea5e9'},{l:'Restaurant',a:'#3f0f0f',b:'#b91c1c'}],lat:38.3437,lng:-0.4829,description:'The AC Hotel Alicante by Marriott places you at the heart of the city. The Explanada de Espana is a 5-minute stroll, the castle quarter visible from the upper floors, and the old town\'s best restaurants right on your doorstep.',highlights:['5-minute walk to Explanada de Espana','Views of Alicante Castle','Full spa and indoor pool','Walking distance to MARQ museum','Rooftop terrace restaurant','Secure parking available']},
-    {name:'Hospes Amerigo',tier:'5-star',feat:'Boutique historic building · rooftop pool · city',pricePerNight:142,icon:'boutique',gA:'#831843',gB:'#db2777',thumb:'https://picsum.photos/id/1076/90/80',gallery:[{l:'Exterior',a:'#500724',b:'#9f1239'},{l:'Rooftop',a:'#0c4a6e',b:'#0ea5e9'},{l:'Suite',a:'#1c0e02',b:'#92400e'},{l:'Bar',a:'#1e1b4b',b:'#7c3aed'}],lat:38.3435,lng:-0.4815,description:'A 5-star boutique hotel in a restored 16th-century Dominican convent. Hospes Amerigo blends historic architecture with contemporary luxury — the rooftop pool with castle views is extraordinary.',highlights:['5-star boutique in historic convent','Spectacular rooftop pool & bar','Walking distance to all city sights','Fine dining restaurant','Luxury spa with signature treatments','Concierge and personal service']},
-    {name:'Hotel Tryp Alicante Gran Sol',tier:'4-star',feat:'Sea views · 22nd-floor pool · city & coast',pricePerNight:115,icon:'beach',gA:'#0c4a6e',gB:'#0ea5e9',thumb:'https://picsum.photos/id/1015/90/80',gallery:[{l:'View',a:'#0369a1',b:'#38bdf8'},{l:'Pool',a:'#065f46',b:'#34d399'},{l:'Room',a:'#1e1b4b',b:'#6366f1'},{l:'Coast',a:'#0c4a6e',b:'#0ea5e9'}],lat:38.3440,lng:-0.4820,description:"Alicante's tallest hotel tower. The 22nd-floor pool and bar offer 360-degree views across the bay, the castle, and the Costa Blanca coastline. A bold, dramatic property ideal for a view to remember.",highlights:['22nd-floor infinity pool & bar','360 views across Alicante Bay','Walking distance to beach & city','Modern spa and fitness centre','Panoramic restaurant on upper floors','Ideal base for Costa Blanca day trips']}
+    {name:'Marriott Alicante',tier:'4-star',feat:'City centre · Explanada walkable · spa & pool',pricePerNight:128,icon:'city',tags:['city','views','dining'],gA:'#374151',gB:'#6b7280',thumb:'https://picsum.photos/id/1060/90/80',gallery:[{l:'Exterior',a:'#1f2937',b:'#4b5563'},{l:'Lobby',a:'#111827',b:'#374151'},{l:'Pool',a:'#0c4a6e',b:'#0ea5e9'},{l:'Restaurant',a:'#3f0f0f',b:'#b91c1c'}],lat:38.3437,lng:-0.4829,description:'The AC Hotel Alicante by Marriott places you at the heart of the city. The Explanada de Espana is a 5-minute stroll, the castle quarter visible from the upper floors, and the old town\'s best restaurants right on your doorstep.',highlights:['5-minute walk to Explanada de Espana','Views of Alicante Castle','Full spa and indoor pool','Walking distance to MARQ museum','Rooftop terrace restaurant','Secure parking available']},
+    {name:'Hospes Amerigo',tier:'5-star',feat:'Boutique historic building · rooftop pool · city',pricePerNight:142,icon:'boutique',tags:['boutique','city','dining'],gA:'#831843',gB:'#db2777',thumb:'https://picsum.photos/id/1076/90/80',gallery:[{l:'Exterior',a:'#500724',b:'#9f1239'},{l:'Rooftop',a:'#0c4a6e',b:'#0ea5e9'},{l:'Suite',a:'#1c0e02',b:'#92400e'},{l:'Bar',a:'#1e1b4b',b:'#7c3aed'}],lat:38.3435,lng:-0.4815,description:'A 5-star boutique hotel in a restored 16th-century Dominican convent. Hospes Amerigo blends historic architecture with contemporary luxury — the rooftop pool with castle views is extraordinary.',highlights:['5-star boutique in historic convent','Spectacular rooftop pool & bar','Walking distance to all city sights','Fine dining restaurant','Luxury spa with signature treatments','Concierge and personal service']},
+    {name:'Hotel Tryp Alicante Gran Sol',tier:'4-star',feat:'Sea views · 22nd-floor pool · city & coast',pricePerNight:115,icon:'beach',tags:['city','views','dining','beach'],gA:'#0c4a6e',gB:'#0ea5e9',thumb:'https://picsum.photos/id/1015/90/80',gallery:[{l:'View',a:'#0369a1',b:'#38bdf8'},{l:'Pool',a:'#065f46',b:'#34d399'},{l:'Room',a:'#1e1b4b',b:'#6366f1'},{l:'Coast',a:'#0c4a6e',b:'#0ea5e9'}],lat:38.3440,lng:-0.4820,description:"Alicante's tallest hotel tower. The 22nd-floor pool and bar offer 360-degree views across the bay, the castle, and the Costa Blanca coastline. A bold, dramatic property ideal for a view to remember.",highlights:['22nd-floor infinity pool & bar','360 views across Alicante Bay','Walking distance to beach & city','Modern spa and fitness centre','Panoramic restaurant on upper floors','Ideal base for Costa Blanca day trips']}
   ],
   premium:[
-    {name:'Melia Alicante',tier:'4-star',feat:'Beachfront · marina views · rooftop infinity pool',pricePerNight:165,icon:'beach',gA:'#0369a1',gB:'#38bdf8',thumb:'https://picsum.photos/id/1044/90/80',gallery:[{l:'Beach',a:'#0c4a6e',b:'#0ea5e9'},{l:'Pool',a:'#065f46',b:'#34d399'},{l:'Suite',a:'#1e1b4b',b:'#818cf8'},{l:'Marina',a:'#0369a1',b:'#7dd3fc'}],lat:38.3327,lng:-0.4782,description:"Set directly on Alicante's Playa del Postiguet, the Melia Alicante offers sweeping sea views, a rooftop infinity pool, and a marina-side location steps from the best of the city.",highlights:['Directly on Playa del Postiguet','Rooftop infinity pool & terrace bar','Marina and castle views','10-minute walk to old town','Full spa and wellness centre','Water sports and beach services']},
-    {name:'Sublime Alicante Bay',tier:'5-star',feat:'Private beach · sea-view suites · butler service',pricePerNight:210,icon:'wellness',gA:'#4d7c0f',gB:'#84cc16',thumb:'https://picsum.photos/id/1035/90/80',gallery:[{l:'Beach',a:'#0c4a6e',b:'#0ea5e9'},{l:'Suite',a:'#1c1917',b:'#a8a29e'},{l:'Spa',a:'#052e16',b:'#16a34a'},{l:'Pool',a:'#14532d',b:'#4ade80'}],lat:38.3310,lng:-0.4760,description:"Alicante's most exclusive coastal retreat. 48 sea-view suites, a private stretch of beach, butler service throughout, and a spa that regularly features in Conde Nast's European top ten.",highlights:['Private beachfront access','Sea-view suites with terraces','Personal butler service','Conde Nast top-ten spa','Michelin-starred dining','Complimentary yacht excursion']},
-    {name:'Villa La Manga by Marriott',tier:'5-star',feat:'Golf resort · spa · mountain & sea panoramas',pricePerNight:185,icon:'golf',gA:'#1e3a8a',gB:'#3b82f6',thumb:'https://picsum.photos/id/1005/90/80',gallery:[{l:'Resort',a:'#1e3a8a',b:'#2563eb'},{l:'Golf',a:'#14532d',b:'#16a34a'},{l:'Spa',a:'#1e1b4b',b:'#7c3aed'},{l:'Panorama',a:'#0c4a6e',b:'#38bdf8'}],lat:38.5166,lng:-0.1214,description:'A spectacular 5-star resort commanding panoramic views across mountain and coastline. Three championship golf courses, a world-class spa, and every facility for a true luxury escape.',highlights:['Three championship golf courses','World-class spa & wellness','Panoramic mountain and sea views','Multiple pools and sports facilities','Fine dining and wine cellar','Complimentary shuttle to beach']}
+    {name:'Melia Alicante',tier:'4-star',feat:'Beachfront · marina views · rooftop infinity pool',pricePerNight:165,icon:'beach',tags:['beach','views','city'],gA:'#0369a1',gB:'#38bdf8',thumb:'https://picsum.photos/id/1044/90/80',gallery:[{l:'Beach',a:'#0c4a6e',b:'#0ea5e9'},{l:'Pool',a:'#065f46',b:'#34d399'},{l:'Suite',a:'#1e1b4b',b:'#818cf8'},{l:'Marina',a:'#0369a1',b:'#7dd3fc'}],lat:38.3327,lng:-0.4782,description:"Set directly on Alicante's Playa del Postiguet, the Melia Alicante offers sweeping sea views, a rooftop infinity pool, and a marina-side location steps from the best of the city.",highlights:['Directly on Playa del Postiguet','Rooftop infinity pool & terrace bar','Marina and castle views','10-minute walk to old town','Full spa and wellness centre','Water sports and beach services']},
+    {name:'Sublime Alicante Bay',tier:'5-star',feat:'Private beach · sea-view suites · butler service',pricePerNight:210,icon:'wellness',tags:['beach','boutique','dining','views'],gA:'#4d7c0f',gB:'#84cc16',thumb:'https://picsum.photos/id/1035/90/80',gallery:[{l:'Beach',a:'#0c4a6e',b:'#0ea5e9'},{l:'Suite',a:'#1c1917',b:'#a8a29e'},{l:'Spa',a:'#052e16',b:'#16a34a'},{l:'Pool',a:'#14532d',b:'#4ade80'}],lat:38.3310,lng:-0.4760,description:"Alicante's most exclusive coastal retreat. 48 sea-view suites, a private stretch of beach, butler service throughout, and a spa that regularly features in Conde Nast's European top ten.",highlights:['Private beachfront access','Sea-view suites with terraces','Personal butler service','Conde Nast top-ten spa','Michelin-starred dining','Complimentary yacht excursion']},
+    {name:'Villa La Manga by Marriott',tier:'5-star',feat:'Golf resort · spa · mountain & sea panoramas',pricePerNight:185,icon:'golf',tags:['golf','views','dining'],gA:'#1e3a8a',gB:'#3b82f6',thumb:'https://picsum.photos/id/1005/90/80',gallery:[{l:'Resort',a:'#1e3a8a',b:'#2563eb'},{l:'Golf',a:'#14532d',b:'#16a34a'},{l:'Spa',a:'#1e1b4b',b:'#7c3aed'},{l:'Panorama',a:'#0c4a6e',b:'#38bdf8'}],lat:38.5166,lng:-0.1214,description:'A spectacular 5-star resort commanding panoramic views across mountain and coastline. Three championship golf courses, a world-class spa, and every facility for a true luxury escape.',highlights:['Three championship golf courses','World-class spa & wellness','Panoramic mountain and sea views','Multiple pools and sports facilities','Fine dining and wine cellar','Complimentary shuttle to beach']}
   ]
 };
 
@@ -589,11 +609,22 @@ function getHotelSet(budget){
 }
 
 // ── SYSTEM PROMPT ───────────────────────────────────────────────
-const SYSTEM=`You are an easyJet Holidays AI assistant. The customer just booked flights.
-BOOKING: Sarah Chen, Explorer tier. LGW to ALC, 15-22 Aug 2026, 7 nights, 2 adults. Flights paid: £412 total. No hotel yet. Profile: 4-star beach preference.
-HOTEL TIERS: Budget under £100/room/night, Mid £100-150, Premium over £150/room/night.
-GOALS: 1) When customer says yes to hotels, ask briefly about their budget. 2) If customer has NOT yet stated a budget, end reply with [SHOW_BUDGET_SLIDER] to let them pick. 3) If customer states a specific amount (e.g. "around £125", "125 a night", "£150 per night"), acknowledge it and end with [SHOW_HOTELS] — NEVER re-show the slider after a specific amount has been given. 4) Help them choose. 5) End reply with [BOOKING_CONFIRMED] only when hotel clearly selected.
-RULES: 2-4 sentences max. Warm, helpful. Never mention insurance or transfers proactively.`;
+const SYSTEM=`You are an easyJet Holidays AI assistant helping Sarah Chen manage her upcoming trip.
+
+BOOKING REFERENCE: EJH4819
+CUSTOMER: Sarah Chen, Explorer loyalty tier (2 years), 4-star beach preference, previous attach rate 68%.
+
+OUTBOUND FLIGHT: 15 Aug 2026 — departs LGW 07:20, arrives ALC 10:45 (2h 25m direct)
+RETURN FLIGHT: 22 Aug 2026 — departs ALC 18:30, arrives LGW 20:55 (2h 25m direct)
+PASSENGERS: 2 adults. Flights paid in full: £412 total.
+DURATION: 7 nights (15–22 Aug 2026)
+HOTEL: Not yet booked (this conversation is to help select and book one)
+
+HOTEL TIERS: Budget under £100/room/night, Mid £100–150, Premium over £150/room/night.
+
+GOALS: 1) When customer says yes to hotels, ask briefly about their budget. 2) If customer has NOT yet stated a budget, end reply with [SHOW_BUDGET_SLIDER] to let them pick. 3) If customer states a specific amount (e.g. "around £125", "125 a night", "£150 per night"), acknowledge the budget in ONE short sentence (e.g. "Great, £150/night gives you some lovely options!") then end with [SHOW_HOTELS]. Do NOT describe property types, beach access, or any preferences — those come next in a separate step. 4) Help them choose from the options shown. 5) End reply with [BOOKING_CONFIRMED] only when hotel clearly selected.
+
+RULES: Keep replies to 2–4 sentences. Be warm and specific — you know the exact flight times, booking ref, and trip details above so use them. Never mention insurance or transfers proactively.`;
 
 // ── PRICING ─────────────────────────────────────────────────────
 function fmt(n){return '\u00a3'+n.toLocaleString('en-GB');}
@@ -713,16 +744,44 @@ function activate(){
 }
 
 function goBack(){
+  // Phone: back to pre-activate splash
   document.getElementById('preActivate').style.display='flex';
   document.getElementById('appTop').style.display='none';
   document.getElementById('appCtx').style.display='none';
   document.getElementById('chatView').style.display='none';
+  closeHotelDetail();
+
+  // Clear chat messages
+  document.getElementById('msgs').innerHTML='';
+
+  // Reset console panel
   document.getElementById('consolePanel').style.display='none';
+  document.getElementById('conLog').innerHTML='<div class="con-empty">Waiting for agent activation...</div>';
+
+  // Reset token counter
+  document.getElementById('tokCounter').classList.remove('visible');
+  document.getElementById('tokTotal').textContent='0';
+  document.getElementById('tokCost').textContent='$0.0000';
+
+  // Reset header buttons
   document.getElementById('actBtn').style.display='flex';
   document.getElementById('activeStatus').style.display='none';
   document.getElementById('backBtn').style.display='none';
-  closeHotelDetail();
-  chatHistory=[];stage=0;busy=false;setInputEnabled(true);
+
+  // Reset all state
+  chatHistory=[];stage=0;busy=false;
+  sliderBudget=150;activeHotelSet=null;currentDetailHotel=null;selectedPrefs=[];
+  tOff=0;totalInTok=0;totalOutTok=0;totalCost=0;
+
+  // Re-trigger analysis panel entry animations
+  var toReanimate=[].slice.call(document.querySelectorAll('.ri,.dec-card,.tl-card,.act-wrap'));
+  toReanimate.forEach(function(el){
+    el.style.animation='none';
+    el.offsetHeight; // force reflow so browser registers the reset
+    el.style.animation='';
+  });
+
+  setInputEnabled(true);
 }
 
 // ── API ──────────────────────────────────────────────────────────
@@ -760,8 +819,8 @@ function processSignals(text){
     clean=text.replace('[SHOW_HOTELS]','').trim();
     log('data','Filtering hotel set for budget tier',200);
     log('data','Live availability confirmed',600);
-    setTimeout(renderHotelCards,800);
-    stage=2;
+    setTimeout(renderPreferenceCard,800);
+    stage=1.6; // sentinel: pref card already queued, confirmBudget fallback should not fire
   }
   if(text.includes('[BOOKING_CONFIRMED]')){
     clean=text.replace('[BOOKING_CONFIRMED]','').trim();
@@ -888,34 +947,145 @@ function confirmBudget(){
     var clean=processSignals(res.reply);
     if(clean.trim())addAgent(clean);
     trackTokens(res.usage);
-    if(stage<2){setTimeout(renderHotelCards,400);}
-  }).catch(function(){hideTyping();renderHotelCards();}).finally(function(){busy=false;setInputEnabled(true);});
+    if(stage<1.6){setTimeout(renderPreferenceCard,400);}
+  }).catch(function(){hideTyping();renderPreferenceCard();}).finally(function(){busy=false;setInputEnabled(true);});
+}
+
+// ── PREFERENCE CARD ──────────────────────────────────────────────
+function renderPreferenceCard(){
+  selectedPrefs=[];
+  var area=document.getElementById('msgs');
+  var card=document.createElement('div');
+  card.id='prefCard';
+  card.className='msg-new';
+  card.style.cssText='background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;width:100%;flex-shrink:0;display:flex;flex-direction:column;gap:11px;';
+
+  var title=document.createElement('div');
+  title.innerHTML='<div style="font-size:13px;font-weight:600;color:var(--text);">What matters most to you?</div>'
+    +'<div style="font-size:11px;color:var(--text-2);margin-top:3px;">Pick everything that applies</div>';
+  card.appendChild(title);
+
+  var grid=document.createElement('div');
+  grid.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:8px;';
+
+  PREF_OPTIONS.forEach(function(p){
+    var btn=document.createElement('button');
+    btn.setAttribute('data-pref',p.key);
+    btn.style.cssText='display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:var(--r-sm);border:1.5px solid var(--border);background:var(--surface-2);color:var(--text-2);font-family:var(--font);font-size:12px;font-weight:500;cursor:pointer;text-align:left;transition:all .15s;';
+    btn.innerHTML='<span style="font-size:16px;">'+p.icon+'</span><span>'+p.label+'</span>';
+    btn.addEventListener('click',function(){
+      var active=btn.getAttribute('data-active')==='1';
+      if(active){
+        btn.removeAttribute('data-active');
+        btn.style.background='var(--surface-2)';
+        btn.style.borderColor='var(--border)';
+        btn.style.color='var(--text-2)';
+        selectedPrefs=selectedPrefs.filter(function(k){return k!==p.key;});
+      }else{
+        btn.setAttribute('data-active','1');
+        btn.style.background='var(--ej-bg)';
+        btn.style.borderColor='var(--ej)';
+        btn.style.color='var(--ej-text)';
+        selectedPrefs.push(p.key);
+      }
+    });
+    grid.appendChild(btn);
+  });
+  card.appendChild(grid);
+
+  var footer=document.createElement('div');
+  footer.style.cssText='display:flex;align-items:center;gap:10px;';
+  var skip=document.createElement('button');
+  skip.textContent='Skip';
+  skip.style.cssText='font-size:12px;color:var(--text-3);background:none;border:none;cursor:pointer;font-family:var(--font);padding:4px 0;';
+  skip.addEventListener('click',function(){confirmPreferences(true);});
+  var go=document.createElement('button');
+  go.style.cssText='flex:1;padding:10px;background:var(--ej);color:#fff;border:none;border-radius:var(--r-sm);font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;';
+  go.textContent='Show me hotels \u2192';
+  go.addEventListener('click',function(){confirmPreferences(false);});
+  footer.appendChild(skip);
+  footer.appendChild(go);
+  card.appendChild(footer);
+
+  area.appendChild(card);
+  area.scrollTop=area.scrollHeight;
+}
+
+function confirmPreferences(skipped){
+  var card=document.getElementById('prefCard');
+  if(card){card.style.opacity='0.4';card.style.pointerEvents='none';}
+
+  if(skipped||selectedPrefs.length===0){
+    addCustomer('No strong preferences \u2014 show me the options.');
+    chatHistory.push({role:'user',content:'No specific preferences, just show me the options.'});
+    chatHistory.push({role:'assistant',content:'Sure! Here are the best options for your budget.'});
+  }else{
+    var labels=selectedPrefs.map(function(k){
+      var o=PREF_OPTIONS.find(function(p){return p.key===k;});
+      return o?o.label:k;
+    });
+    var txt='I\u2019d love '+labels.join(', ').toLowerCase()+'.';
+    addCustomer(txt);
+    chatHistory.push({role:'user',content:'My priorities are: '+labels.join(', ')+'.'});
+    var bestMatch=sortHotelsByPrefs(activeHotelSet||HOTEL_SETS.mid)[0];
+    chatHistory.push({role:'assistant',content:'Got it \u2014 filtering for '+labels.join(' and ')+'. Here are your best matches.'});
+    addAgent('Got it \u2014 here are your best matches for '+labels.join(' & ')+'.');
+  }
+  setTimeout(renderHotelCards,350);
+}
+
+function sortHotelsByPrefs(hotels){
+  if(!selectedPrefs||selectedPrefs.length===0)return hotels;
+  return hotels.slice().sort(function(a,b){
+    return matchScore(b)-matchScore(a);
+  });
+}
+
+function matchScore(hotel){
+  if(!hotel.tags||selectedPrefs.length===0)return 0;
+  return selectedPrefs.reduce(function(sum,pk){
+    var opt=PREF_OPTIONS.find(function(p){return p.key===pk;});
+    if(!opt)return sum;
+    return sum+(opt.tags.some(function(t){return hotel.tags.indexOf(t)>-1;})?1:0);
+  },0);
 }
 
 // ── HOTEL CARDS ──────────────────────────────────────────────────
 function renderHotelCards(){
   if(!activeHotelSet)activeHotelSet=HOTEL_SETS.mid;
+  var hotels=sortHotelsByPrefs(activeHotelSet);
   var area=document.getElementById('msgs');
   var wrap=document.createElement('div');wrap.className='h-cards msg-new';
-  activeHotelSet.forEach(function(h,idx){
+  hotels.forEach(function(h,idx){
+    var score=matchScore(h);
+    var isBest=idx===0&&score>0&&selectedPrefs.length>0;
     var card=document.createElement('div');card.className='h-card';
+    if(isBest)card.style.borderColor='var(--ej)';
     card.innerHTML='<div class="h-thumb" style="background:linear-gradient(135deg,'+h.gA+','+h.gB+')">'
       +(h.thumb?'<img src="'+h.thumb+'" alt="'+h.name+'" onerror="this.style.display=\'none\'">':'')
       +(ICONS[h.icon]||ICONS.city)
       +'</div>'
-      +'<div class="h-info"><div class="h-nm">'+h.name+'</div><div class="h-tier">'+h.tier+'</div><div class="h-feat">'+h.feat+'</div><div class="h-why">&#10003; '+h.highlights[0]+'</div></div>'
+      +'<div class="h-info">'
+        +(isBest?'<div style="font-size:9px;font-weight:700;color:var(--ej);text-transform:uppercase;letter-spacing:.6px;margin-bottom:3px;">&#9733; Best match</div>':'')
+        +'<div class="h-nm">'+h.name+'</div><div class="h-tier">'+h.tier+'</div><div class="h-feat">'+h.feat+'</div>'
+        +(score>0?'<div class="h-why">&#10003; '+score+' of your preferences matched</div>':'<div class="h-why">&#10003; '+h.highlights[0]+'</div>')
+      +'</div>'
       +'<div class="h-pr"><div class="h-p">\u00a3'+h.pricePerNight+'</div><div class="h-pp">per room/night</div><div class="h-total">\u00a3'+(h.pricePerNight*7).toLocaleString('en-GB')+' total</div><div class="h-hint">View details \u2192</div></div>';
     card.addEventListener('click',function(){openHotelDetail(h,idx);});
     wrap.appendChild(card);
   });
   area.appendChild(wrap);area.scrollTop=area.scrollHeight;stage=2;
-  // Tell Claude exactly which hotels are on screen so it has full context
-  var hotelSummary=activeHotelSet.map(function(h){return h.name+' ('+h.tier+', \u00a3'+h.pricePerNight+'/room/night)';}).join(', ');
-  chatHistory.push({role:'user',content:'[Three hotels are now displayed on screen: '+hotelSummary+'. The customer can tap any to view details.]'});
-  chatHistory.push({role:'assistant',content:'I\'ve pulled up three options that match your budget. Tap any one to see full details, photos and the map.'});
+  var hotelSummary=hotels.map(function(h){return h.name+' ('+h.tier+', \u00a3'+h.pricePerNight+'/room/night, score:'+matchScore(h)+')';}).join(', ');
+  chatHistory.push({role:'user',content:'[Hotels displayed ranked by preference match: '+hotelSummary+']'});
+  chatHistory.push({role:'assistant',content:'I\'ve pulled up three options ranked by your preferences. Tap any one to see full details.'});
 }
 
 // ── HOTEL DETAIL ─────────────────────────────────────────────────
+function galleryImgUrl(hotelName,label,w,h){
+  var seed=(hotelName+'-'+label).toLowerCase().replace(/[^a-z0-9]+/g,'-');
+  return 'https://picsum.photos/seed/'+seed+'/'+w+'/'+h;
+}
+
 function openHotelDetail(h,idx){
   currentDetailHotel=h;currentGalleryIdx=0;
   document.getElementById('chatView').style.display='none';
@@ -929,8 +1099,11 @@ function openHotelDetail(h,idx){
   setHdvHero(0);
   var tb=document.getElementById('hdvThumbs');
   tb.innerHTML=h.gallery.map(function(g,i){
+    var imgUrl=galleryImgUrl(h.name,g.l,112,72);
     return '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer" onclick="setHdvHero('+i+')">'
-      +'<div class="hdv-thumb'+(i===0?' active':'')+'" id="hdvThumb'+i+'" style="background:linear-gradient(135deg,'+g.a+','+g.b+')"></div>'
+      +'<div class="hdv-thumb'+(i===0?' active':'')+'" id="hdvThumb'+i+'" style="background:linear-gradient(135deg,'+g.a+','+g.b+');overflow:hidden;">'
+      +'<img src="'+imgUrl+'" alt="'+g.l+'" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display=\'none\'">'
+      +'</div>'
       +'<span style="font-size:8px;color:var(--text-2)">'+g.l+'</span></div>';
   }).join('');
   setTimeout(function(){
@@ -943,7 +1116,7 @@ function openHotelDetail(h,idx){
     }
     try{
       hdvMap=L.map(el,{zoomControl:true}).setView([h.lat,h.lng],13);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:18}).addTo(hdvMap);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'\u00a9 OpenStreetMap',maxZoom:18}).addTo(hdvMap);
       var pin=L.divIcon({className:'',html:'<div class="hotel-pin">'+h.name+'</div>',iconAnchor:[0,24]});
       L.marker([h.lat,h.lng],{icon:pin}).addTo(hdvMap);
       hdvMap.invalidateSize();
@@ -955,16 +1128,18 @@ function setHdvHero(idx){
   currentGalleryIdx=idx;
   var h=currentDetailHotel;var g=h.gallery[idx];
   var hero=document.getElementById('hdvHero');
+  var imgUrl=galleryImgUrl(h.name,g.l,390,220);
   hero.style.background='linear-gradient(160deg,'+g.a+','+g.b+')';
-  hero.innerHTML='<div style="opacity:.3;position:absolute;inset:0;display:flex;align-items:center;justify-content:center">'+(ICONS[h.icon]||ICONS.city)+'</div>'
-    +'<div style="position:absolute;bottom:8px;left:12px;font-size:11px;font-weight:600;color:rgba(255,255,255,.85)">'+g.l+'</div>';
+  hero.innerHTML=
+    '<img src="'+imgUrl+'" alt="'+g.l+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .3s;" onerror="this.style.display=\'none\'">'
+    +'<div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.35) 0%,transparent 50%);pointer-events:none;"></div>'
+    +'<div style="position:absolute;bottom:10px;left:14px;font-size:12px;font-weight:600;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.6);">'+g.l+'</div>';
   document.querySelectorAll('[id^=hdvThumb]').forEach(function(el,i){
     el.classList.toggle('active',i===idx);
     el.style.borderColor=i===idx?'#fff':'transparent';
     el.style.opacity=i===idx?'1':'0.5';
   });
 }
-
 function closeHotelDetail(){
   document.getElementById('hotelDetailView').style.display='none';
   document.getElementById('chatView').style.display='flex';
@@ -1021,7 +1196,7 @@ function processPayment(card){
       var tripTotal=hotelTotal+FLIGHT.total;
       // Inject full booking context so Claude knows everything going forward
       chatHistory.push({role:'user',content:'Payment confirmed. I\'ve paid \u00a3'+hotelTotal+' for the '+hn+'.'});
-      chatHistory.push({role:'assistant',content:'Booking confirmed! '+hn+' ('+ht+') is reserved for Sarah Chen, 15\u201322 August 2026, 2 adults. Hotel: \u00a3'+hotelTotal+'. Flights already paid: \u00a3'+FLIGHT.total+'. Total trip: \u00a3'+tripTotal+'. The full itinerary is now shown in the app.'});
+      chatHistory.push({role:'assistant',content:'Booking confirmed! '+hn+' ('+ht+') is reserved for Sarah Chen, 15\u201322 August 2026, 2 adults. Outbound: LGW 07:20 \u2192 ALC 10:45 on 15 Aug. Return: ALC 18:30 \u2192 LGW 20:55 on 22 Aug. Hotel: \u00a3'+hotelTotal+'. Flights paid: \u00a3'+FLIGHT.total+'. Total trip: \u00a3'+tripTotal+'.'});
       log('sys','Payment received \u2014 EJH4819',0);
       log('data','Booking updated \u2014 hotel confirmed',300);
       log('sched','Insurance prompt queued \u2014 +24h',600);
