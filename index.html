@@ -376,7 +376,8 @@ body.mobile-mode .mr{max-width:88%;}
   <div class="app-header">
     
     <span class="demo-tag">Agentic attach &mdash; demo</span>
-    <span style="font-size:10px;font-family:var(--mono);color:var(--text-3);background:var(--surface-2);border:1px solid var(--border);padding:2px 8px;border-radius:20px;">v1.7</span>
+    <span style="font-size:10px;font-family:var(--mono);color:var(--text-3);background:var(--surface-2);border:1px solid var(--border);padding:2px 8px;border-radius:20px;">v1.8</span>
+    <button onclick="openCalc()" style="font-size:11px;font-family:var(--font);color:var(--text-2);background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:4px 12px;cursor:pointer;display:flex;align-items:center;gap:6px;">&#128200; Revenue model</button>
     <button id="backBtn" onclick="goBack()">&#8592; Back to analysis</button>
     <span class="hdr-right">NTT DATA &middot; Agentic Attach Demo</span>
   </div>
@@ -1476,6 +1477,185 @@ function log(type,msg,delay){
 }
 
   initDemo();
+</script>
+<!-- CALCULATOR MODAL -->
+<div id="calcModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(3px);" onclick="if(event.target===this)closeCalc()">
+  <div style="background:var(--surface);border-radius:var(--r);width:100%;max-width:740px;max-height:88vh;overflow-y:auto;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.25);">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 22px 14px;border-bottom:1px solid var(--border-2);position:sticky;top:0;background:var(--surface);z-index:10;">
+      <div>
+        <div style="font-size:11px;color:var(--text-3);margin-bottom:2px;">easyJet Holidays &middot; Agentic Attach</div>
+        <div style="font-size:17px;font-weight:600;color:var(--text);">Attach rate revenue calculator</div>
+      </div>
+      <button onclick="closeCalc()" style="width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:var(--surface-2);cursor:pointer;font-size:16px;color:var(--text-2);display:flex;align-items:center;justify-content:center;font-family:var(--font);">&times;</button>
+    </div>
+    <div style="padding:22px;">
+
+      <!-- Assumptions -->
+      <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text-3);margin-bottom:10px;">Base assumptions</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:22px;">
+        <div style="background:var(--surface-2);border-radius:var(--r-sm);padding:10px 12px;">
+          <div style="font-size:11px;color:var(--text-2);margin-bottom:6px;">Annual flight bookings</div>
+          <input type="text" id="calc-bookings" value="45,000,000" inputmode="numeric" style="background:none;border:none;outline:none;font-size:16px;font-weight:600;color:var(--text);width:100%;font-family:var(--font);">
+        </div>
+        <div style="background:var(--surface-2);border-radius:var(--r-sm);padding:10px 12px;">
+          <div style="font-size:11px;color:var(--text-2);margin-bottom:6px;">Current attach rate</div>
+          <div style="display:flex;align-items:center;gap:4px;">
+            <input type="text" id="calc-rate" value="6" inputmode="decimal" style="background:none;border:none;outline:none;font-size:16px;font-weight:600;color:var(--text);width:50px;font-family:var(--font);">
+            <span style="font-size:13px;color:var(--text-2);">%</span>
+          </div>
+        </div>
+        <div style="background:var(--surface-2);border-radius:var(--r-sm);padding:10px 12px;">
+          <div style="font-size:11px;color:var(--text-2);margin-bottom:6px;">Avg hotel booking value</div>
+          <div style="display:flex;align-items:center;gap:4px;">
+            <span style="font-size:13px;color:var(--text-2);">&pound;</span>
+            <input type="text" id="calc-value" value="650" inputmode="numeric" style="background:none;border:none;outline:none;font-size:16px;font-weight:600;color:var(--text);width:100%;font-family:var(--font);">
+          </div>
+        </div>
+        <div style="background:var(--surface-2);border-radius:var(--r-sm);padding:10px 12px;">
+          <div style="font-size:11px;color:var(--text-2);margin-bottom:6px;">Hotel margin</div>
+          <div style="display:flex;align-items:center;gap:4px;">
+            <input type="text" id="calc-margin" value="22" inputmode="decimal" style="background:none;border:none;outline:none;font-size:16px;font-weight:600;color:var(--text);width:50px;font-family:var(--font);">
+            <span style="font-size:13px;color:var(--text-2);">%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scenarios -->
+      <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text-3);margin-bottom:10px;">Improvement scenarios</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;">
+        <div id="calc-sc-1" style="border:1px solid var(--border);border-radius:var(--r);overflow:hidden;">
+          <div style="padding:14px 14px 10px;">
+            <div style="font-size:28px;font-weight:600;color:var(--ej);line-height:1;">+1pp</div>
+            <div style="font-size:12px;color:var(--text-2);margin-top:4px;" id="calc-r1">—</div>
+          </div>
+          <div style="height:1px;background:var(--border-2);margin:0 14px 12px;"></div>
+          <div style="padding:0 14px 14px;display:flex;flex-direction:column;gap:10px;">
+            <div><div style="font-size:11px;color:var(--text-2);">Additional bookings</div><div style="font-size:19px;font-weight:600;color:var(--text);" id="calc-a1">—</div></div>
+            <div><div style="font-size:11px;color:var(--text-2);">Revenue uplift</div><div style="font-size:19px;font-weight:600;color:var(--text);" id="calc-v1">—</div></div>
+            <div><div style="font-size:11px;color:var(--text-2);">Margin impact</div><div style="font-size:19px;font-weight:600;color:var(--ej);" id="calc-m1">—</div></div>
+          </div>
+        </div>
+        <div id="calc-sc-2" style="border:1px solid var(--border);border-radius:var(--r);overflow:hidden;">
+          <div style="padding:14px 14px 10px;">
+            <div style="font-size:28px;font-weight:600;color:var(--ej);line-height:1;">+2pp</div>
+            <div style="font-size:12px;color:var(--text-2);margin-top:4px;" id="calc-r2">—</div>
+          </div>
+          <div style="height:1px;background:var(--border-2);margin:0 14px 12px;"></div>
+          <div style="padding:0 14px 14px;display:flex;flex-direction:column;gap:10px;">
+            <div><div style="font-size:11px;color:var(--text-2);">Additional bookings</div><div style="font-size:19px;font-weight:600;color:var(--text);" id="calc-a2">—</div></div>
+            <div><div style="font-size:11px;color:var(--text-2);">Revenue uplift</div><div style="font-size:19px;font-weight:600;color:var(--text);" id="calc-v2">—</div></div>
+            <div><div style="font-size:11px;color:var(--text-2);">Margin impact</div><div style="font-size:19px;font-weight:600;color:var(--ej);" id="calc-m2">—</div></div>
+          </div>
+        </div>
+        <div id="calc-sc-3" style="border:1px solid var(--border);border-radius:var(--r);overflow:hidden;">
+          <div style="padding:14px 14px 10px;">
+            <div style="font-size:28px;font-weight:600;color:var(--ej);line-height:1;">+3pp</div>
+            <div style="font-size:12px;color:var(--text-2);margin-top:4px;" id="calc-r3">—</div>
+          </div>
+          <div style="height:1px;background:var(--border-2);margin:0 14px 12px;"></div>
+          <div style="padding:0 14px 14px;display:flex;flex-direction:column;gap:10px;">
+            <div><div style="font-size:11px;color:var(--text-2);">Additional bookings</div><div style="font-size:19px;font-weight:600;color:var(--text);" id="calc-a3">—</div></div>
+            <div><div style="font-size:11px;color:var(--text-2);">Revenue uplift</div><div style="font-size:19px;font-weight:600;color:var(--text);" id="calc-v3">—</div></div>
+            <div><div style="font-size:11px;color:var(--text-2);">Margin impact</div><div style="font-size:19px;font-weight:600;color:var(--ej);" id="calc-m3">—</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Custom slider -->
+      <div style="background:var(--surface-2);border-radius:var(--r);padding:16px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+          <span style="font-size:13px;font-weight:600;color:var(--text);">Custom scenario</span>
+          <span style="font-size:15px;font-weight:600;color:var(--ej);" id="calc-custom-lbl">+2.0pp &rarr; attach rate 8.0%</span>
+        </div>
+        <input type="range" id="calc-slider" min="0.5" max="5" step="0.5" value="2" style="width:100%;accent-color:var(--ej);margin-bottom:6px;">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-3);margin-bottom:16px;">
+          <span>+0.5pp</span><span>+1pp</span><span>+1.5pp</span><span>+2pp</span><span>+2.5pp</span><span>+3pp</span><span>+3.5pp</span><span>+4pp</span><span>+4.5pp</span><span>+5pp</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+          <div><div style="font-size:11px;color:var(--text-2);margin-bottom:2px;">Additional bookings</div><div style="font-size:17px;font-weight:600;color:var(--text);" id="calc-ca">—</div></div>
+          <div><div style="font-size:11px;color:var(--text-2);margin-bottom:2px;">Revenue uplift</div><div style="font-size:17px;font-weight:600;color:var(--text);" id="calc-cv">—</div></div>
+          <div><div style="font-size:11px;color:var(--text-2);margin-bottom:2px;">Margin impact</div><div style="font-size:17px;font-weight:600;color:var(--ej);" id="calc-cm">—</div></div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;font-size:11px;color:var(--text-3);line-height:1.6;border-top:1px solid var(--border-2);padding-top:12px;">
+        <strong>Sources:</strong> Annual flight bookings: easyJet ~90m seats &divide; 2 avg passengers = 45m booking transactions (FY25). Current attach rate: 6% per brief (consistent with EJH 2.7m customers FY25 &divide; 45m bookings). Avg hotel booking value: hotel component of &pound;698 EJH avg package (FY25), adjusted for post-flight standalone attach. Hotel margin: incremental contribution above flight fixed-cost base; EJH blended PBT ~13% (&pound;250m, FY25). All figures editable.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── CALCULATOR MODAL ─────────────────────────────────────────────
+function openCalc(){
+  var m=document.getElementById('calcModal');
+  m.style.display='flex';
+  calcUpdate();
+}
+function closeCalc(){
+  document.getElementById('calcModal').style.display='none';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeCalc();});
+
+function calcFmtMoney(n){
+  if(n>=1e9)return'\u00a3'+(n/1e9).toFixed(2)+'bn';
+  if(n>=1e6)return'\u00a3'+(n/1e6).toFixed(0)+'m';
+  if(n>=1e3)return'\u00a3'+(n/1e3).toFixed(0)+'k';
+  return'\u00a3'+Math.round(n).toLocaleString('en-GB');
+}
+function calcFmtNum(n){return Math.round(n).toLocaleString('en-GB');}
+function calcParseVal(id){return parseFloat((document.getElementById(id).value||'').replace(/,/g,''))||0;}
+function calcCommaFmt(n){return isNaN(n)?'':Math.round(n).toLocaleString('en-GB');}
+
+function calcAttachField(id){
+  var el=document.getElementById(id);
+  if(!el)return;
+  el.addEventListener('focus',function(){this.value=this.value.replace(/,/g,'');this.select();});
+  el.addEventListener('blur',function(){
+    var n=parseFloat(this.value.replace(/,/g,''));
+    if(!isNaN(n))this.value=calcCommaFmt(n);
+    calcUpdate();
+  });
+  el.addEventListener('input',function(){calcUpdate();});
+}
+['calc-bookings','calc-rate','calc-value','calc-margin'].forEach(calcAttachField);
+document.getElementById('calc-slider').addEventListener('input',function(){calcUpdateCustom();});
+
+function calcGetVals(){
+  return{
+    bookings:calcParseVal('calc-bookings'),
+    rate:calcParseVal('calc-rate'),
+    value:calcParseVal('calc-value'),
+    margin:calcParseVal('calc-margin')
+  };
+}
+function calcScenario(v,pp){
+  var add=v.bookings*pp/100;
+  var rev=add*v.value;
+  var mar=rev*v.margin/100;
+  return{add:add,rev:rev,mar:mar};
+}
+function calcUpdate(){
+  var v=calcGetVals();
+  if(!v.bookings||!v.rate)return;
+  [1,2,3].forEach(function(pp){
+    var s=calcScenario(v,pp);
+    document.getElementById('calc-r'+pp).textContent='Attach rate: '+(v.rate+pp).toFixed(1)+'%';
+    document.getElementById('calc-a'+pp).textContent=calcFmtNum(s.add);
+    document.getElementById('calc-v'+pp).textContent=calcFmtMoney(s.rev);
+    document.getElementById('calc-m'+pp).textContent=calcFmtMoney(s.mar);
+  });
+  calcUpdateCustom(v);
+}
+function calcUpdateCustom(v){
+  if(!v)v=calcGetVals();
+  var pp=parseFloat(document.getElementById('calc-slider').value)||2;
+  var s=calcScenario(v,pp);
+  document.getElementById('calc-custom-lbl').innerHTML='+'+pp.toFixed(1)+'pp &rarr; attach rate '+(v.rate+pp).toFixed(1)+'%';
+  document.getElementById('calc-ca').textContent=calcFmtNum(s.add);
+  document.getElementById('calc-cv').textContent=calcFmtMoney(s.rev);
+  document.getElementById('calc-cm').textContent=calcFmtMoney(s.mar);
+}
 </script>
 </body>
 </html>
